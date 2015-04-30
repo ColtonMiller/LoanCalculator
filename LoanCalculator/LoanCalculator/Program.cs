@@ -23,19 +23,86 @@ namespace LoanCalculator
 
  
 
-    public interface ILoan {
+    public interface ILoan 
+    {
         //defind the interface for a Loan here
+        public double Principal { get; set; }
+        public double Rate { get; set; }
+        public int NumberofPeriods { get; set; }
+
+        public double Payment(int n)
+        {
+
+        }
+        public double Outstanding(int n)
+        {
+
+        }
+        public double Intrest(int n)
+        {
+
+        }
+        public double Repayment(int n)
+        {
+
+        }
     }
 
 
-    public class SerialLoan
+    public class SerialLoan : ILoan
     {
         //implement the interface here for a Serial Loan
+        public double Principle { get; set; }
+        public double Rate { get; set; }
+        public int NumberofPeriods { get; set; }
+        public double Payment(int n)
+        {
+            return (double)(this.Repayment(n) + Interest(n));
+        }
+        public double Outstanding(int n)
+        {
+            return this.Repayment(n) * (NumberofPeriods - n);
+        }
+        public double Interest(int n)
+        {
+          return Outstanding(n - 1) * Rate;
+        }
+        public double Repayment(int n)
+        {
+            return Principle / NumberofPeriods;
+        }
+        public class SerialLoan () 
+        {
+
+        }
     }
 
-    public class AnnuityLoan
+    public class AnnuityLoan : ILoan
     {
         //implement the interface here for an Annuity Loan
+        public double Principle { get; set; }
+        public double Rate { get; set; }
+        public int NumberofPeriods { get; set; }
+        public double Payment(int n)
+        {
+            return Principle * Rate/(Math.Pow(1 + Rate, -NumberofPeriods)) ;
+        }
+        public double Outstanding(int n)
+        {
+            return Principle * Math.Pow(1 + Rate, n) - Payment(0) * (Math.Pow(1 + Rate, n) - 1)/Rate;
+        }
+        public double Interest(int n)
+        {
+            return Outstanding(n - 1) * Rate;
+        }
+        public double Repayment(int n)
+        {
+            return Payment(n) + Interest(n);
+        }
+        public class AnnuityLoan () 
+        {
+                    
+        }
     }
 
    

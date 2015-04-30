@@ -1,0 +1,2 @@
+C:\Users\Technologist\Documents\GitHub\LoanCalculator\LoanCalculator\LoanCalculator\bin\Debug\LoanCalculator.exe.config
+C:\Users\Technologist\Documents\GitHub\LoanCalculator\LoanCalculator\LoanCalculator\obj\Debug\LoanCalculator.csprojResolveAssemblyReference.cache
