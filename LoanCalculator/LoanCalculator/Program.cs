@@ -10,13 +10,13 @@ namespace LoanCalculator
     {
         static void Main(string[] args)
         {
-        //    When complete, uncommenting these lines should result in two tables being displayed to the console.
+            //When complete, uncommenting these lines should result in two tables being displayed to the console.
 
-        //    Amortization table1 = new Amortization(new SerialLoan(10000, 0.02, 10));
-        //    Amortization table2 = new Amortization(new AnnuityLoan(10000, 0.02, 10));
+            Amortization table1 = new Amortization(new SerialLoan(10000, 0.02, 10));
+            Amortization table2 = new Amortization(new AnnuityLoan(10000, 0.02, 10));
 
-        //    table1.Print();
-        //    table2.Print();
+            table1.Print();
+           table2.Print();
 
         }
     }
@@ -26,42 +26,30 @@ namespace LoanCalculator
     public interface ILoan 
     {
         //defind the interface for a Loan here
-        public double Principal { get; set; }
-        public double Rate { get; set; }
-        public int NumberofPeriods { get; set; }
+        double Principal { get; set; }
+        double Rate { get; set; }
+        int Periods { get; set; }
 
-        public double Payment(int n)
-        {
-
-        }
-        public double Outstanding(int n)
-        {
-
-        }
-        public double Intrest(int n)
-        {
-
-        }
-        public double Repayment(int n)
-        {
-
-        }
+        double Payment(int n);
+        double Outstanding(int n);
+        double Interest(int n);
+        double Repayment(int n);
     }
 
 
     public class SerialLoan : ILoan
     {
         //implement the interface here for a Serial Loan
-        public double Principle { get; set; }
+        public double Principal { get; set; }
         public double Rate { get; set; }
-        public int NumberofPeriods { get; set; }
+        public int Periods { get; set; }
         public double Payment(int n)
         {
             return (double)(this.Repayment(n) + Interest(n));
         }
         public double Outstanding(int n)
         {
-            return this.Repayment(n) * (NumberofPeriods - n);
+            return this.Repayment(n) * (Periods - n);
         }
         public double Interest(int n)
         {
@@ -69,27 +57,29 @@ namespace LoanCalculator
         }
         public double Repayment(int n)
         {
-            return Principle / NumberofPeriods;
+            return Principal / Periods;
         }
-        public class SerialLoan () 
+        public SerialLoan (int loan, double rate, int payments)
         {
-
+            this.Principal = loan;
+            this.Rate = rate;
+            this.Periods = payments;
         }
     }
 
     public class AnnuityLoan : ILoan
     {
         //implement the interface here for an Annuity Loan
-        public double Principle { get; set; }
+        public double Principal { get; set; }
         public double Rate { get; set; }
-        public int NumberofPeriods { get; set; }
+        public int Periods { get; set; }
         public double Payment(int n)
         {
-            return Principle * Rate/(Math.Pow(1 + Rate, -NumberofPeriods)) ;
+            return Principal * Rate/(Math.Pow(1 + Rate, -Periods)) ;
         }
         public double Outstanding(int n)
         {
-            return Principle * Math.Pow(1 + Rate, n) - Payment(0) * (Math.Pow(1 + Rate, n) - 1)/Rate;
+            return Principal * Math.Pow(1 + Rate, n) - Payment(0) * (Math.Pow(1 + Rate, n) - 1)/Rate;
         }
         public double Interest(int n)
         {
@@ -99,9 +89,11 @@ namespace LoanCalculator
         {
             return Payment(n) + Interest(n);
         }
-        public class AnnuityLoan () 
+        public AnnuityLoan (int loan, double rate, int payments)
         {
-                    
+            this.Principal = loan;
+            this.Rate = rate;
+            this.Periods = payments;
         }
     }
 

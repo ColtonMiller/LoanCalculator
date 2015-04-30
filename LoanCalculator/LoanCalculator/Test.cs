@@ -13,7 +13,7 @@ namespace LoanCalculator
         [Test]
         public void SerialTest()
         {
-            AnnuityLoan testLoan = new SerialLoan(10000, 0.02, 10);
+            SerialLoan testLoan = new SerialLoan(10000, 0.02, 10);
             Assert.IsTrue(testLoan.Interest(5) == 120);
 
         }
